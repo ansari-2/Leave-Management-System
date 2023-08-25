@@ -21,8 +21,8 @@ class Leave_type(models.Model):
     paternity_leave = models.IntegerField(default=5)
     study_leave = models.IntegerField(default=5)
 
-    def __str__(self):
-        return self.annual_leave
+    # def __str__(self):
+    #     return self.annual_leave
 
 class Leave(models.Model):
 
