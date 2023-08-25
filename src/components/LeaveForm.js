@@ -221,6 +221,14 @@ const LeaveForm = () => {
         <Link to="/leavestatus" className="nav-item">Leave Status</Link>
         <div className="navbar-title">Leave Management System</div>
         <div className='logout-div'>
+          <select value={employeeId} onChange={handleEmployeeChange} className='select'>
+          <option value="none">Select Employee</option>
+          {employees.map((employee) => (
+            <option key={employee.id} value={employee.id}>
+              {employee.emp_name}
+            </option>
+            ))}
+             </select>
         <div className="nav-item">
         <span className="logout-icon"></span>Logout</div>
         </div>
@@ -234,19 +242,9 @@ const LeaveForm = () => {
           
           <div className="form-row">
           <div className="custom-layout">
-          <div className="form-group">
-          <select value={employeeId} onChange={handleEmployeeChange}>
-          <option value="none">Select Employee</option>
-          {employees.map((employee) => (
-            <option key={employee.id} value={employee.id}>
-              {employee.emp_name}
-            </option>
-            ))}
-             </select>
-             </div>
              {selectedEmployee && ( 
              <>
-            {/* <div className="form-group">
+            <div className="form-group">
               <label htmlFor="emp_firstname">Employee Name</label>
               <input
                 type="text"
@@ -256,7 +254,7 @@ const LeaveForm = () => {
                 // onChange={handleInputChange}
                 required
               />
-            </div> */}
+            </div>
             <div className="form-group">
               <label htmlFor="emp_id">Employee ID</label>
               <input

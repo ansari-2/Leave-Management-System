@@ -57,6 +57,8 @@ const Leavestatus = () => {
         try {
           await axios.delete(`http://localhost:8000/lms/update/${leaveId}`);
           alert('Leave application deleted ')
+          const updatedleaveData = empleavedata.filter(leave => leave.id !== leaveId)
+          setEmpLeaveData(updatedleaveData)
           fetchleaves()
         } catch (error) {
           console.error('Error fetching employees:', error);
@@ -74,21 +76,21 @@ const Leavestatus = () => {
         <div className="navbar-title">Leave Management System</div>
         <div className='logout'>
         <div className="nav-item">
+
         <span className="logout-icon"></span>Logout</div>
-        </div>
-      </div>
-        <select onChange={handleEmployeeChange}>
+        <div>        <select onChange={handleEmployeeChange} className='select'>
         <option value="none">Select Employee</option>
         {employee.map((employee) => (
           <option key={employee.id} value={employee.id}>
             {employee.emp_name}
           </option>
           ))}
-           </select>
-          
+           </select></div>
+        </div>
+      </div>          
         {empleavedata && (
         <div className="submitted-data-container">
-          <div className="submitted-data-box">
+          <div className="leave-table2">
 
             <h3>Leave Data</h3>
             {/* Changes start here */}
@@ -131,6 +133,8 @@ const Leavestatus = () => {
                     {leave.status === 'Pending' &&(<td><button onClick={() => deleteleave(leave.id)}className="delete-button">
                       Delete
                       </button></td>)}
+                      <td>{leave.status === 'Approved'  &&(<><strong>Completed</strong></>)}
+                      {leave.status === 'Rejected'  &&(<><strong>Completed</strong></>)}</td>
                     
                   </tr>
                 ))}

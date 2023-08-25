@@ -125,7 +125,7 @@ const Admin = () => {
           
         {empleavedata && (
         <div className="submitted-data-container">
-          <div className="submitted-data-box">
+          <div className="leave-table2">
 
             <h3>Leave Data</h3>
             {/* Changes start here */}
@@ -170,10 +170,11 @@ const Admin = () => {
                     <td>{leave.status}</td>
                     <td>
                     {leave.status === 'Pending' &&(
-                    <button onClick={() => approveleave(leave.id)}className="delete-button">
+                    <button onClick={() => approveleave(leave.id)}className="approve-button">
                       Approve
                       </button>
                       )}
+                      
                     {leave.status === 'Pending' &&(
                     <button onClick={() => rejectleave(leave.id)}className="delete-button">
                       Reject

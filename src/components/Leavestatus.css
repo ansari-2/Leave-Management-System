@@ -47,5 +47,13 @@
     cursor: pointer;
   }
   .logout{
-    margin-left: 451px;
+    margin-left: 423px;
   }
+  .select{
+    color: #ccc;
+    background-color: #1b1818;
+  }
+  .select:hover {
+    color: #ff9900; /* Change to the desired hover color */
+  }
+  

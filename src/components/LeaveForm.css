@@ -138,11 +138,11 @@
 /* Added styles for submitted data */
 .submitted-data-container {
   margin-top: 0px;
-  max-width: 75%;
+  max-width: 93%;
   margin: 0 auto;
   display: flex; 
   justify-content: center;  
-  margin-top: 120px;
+  margin-top: 90px;
   position: relative;
   flex-direction: column-reverse;
 }
@@ -160,7 +160,13 @@
   margin-top: 0;
   margin-bottom: 10px;
 }
-
+.select{
+  color: #ccc;
+  background-color: #1b1818;
+}
+.select:hover {
+  color: #ff9900; /* Change to the desired hover color */
+}
 table {
   width: 100%;
   border-collapse: collapse;
