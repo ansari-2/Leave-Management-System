@@ -1,0 +1,51 @@
+/* Add these styles to your existing CSS or create a new CSS file */
+
+.leavestatus-container {
+  /* display: flex; */
+  flex-direction: column;
+  height: 100vh;
+  /* background-color: #f0f0f0; */
+  background-color: #1b1818;
+  
+}
+.leave-table {
+  text-align: center;
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+  }
+  
+  .leave-table th,
+  .leave-table td {
+    text-align: center;
+    border: 1px solid #ccc;
+    padding: 8px;
+  }
+  
+  .pending {
+    background-color: rgba(255, 174, 0, 0.468);
+    color: black;
+    text-align: center;
+    text-decoration: solid;
+  }
+  
+  .approved {
+    background-color: green;
+    color: white;
+  }
+
+  .rejected {
+    background-color: rgb(141, 6, 6);
+    color: white;
+  }
+  
+  .delete-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  .logout{
+    margin-left: 451px;
+  }
