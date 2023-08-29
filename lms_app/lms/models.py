@@ -6,6 +6,7 @@ class Employee(models.Model):
 
     emp_id = models.IntegerField(default=0)
     emp_name = models.CharField(max_length=50)
+    emp_email = models.CharField(max_length = 50,null=True)
     designation = models.CharField(max_length=50)
 
     def __str__(self):
