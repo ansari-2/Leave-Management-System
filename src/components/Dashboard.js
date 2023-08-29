@@ -35,7 +35,7 @@ const Dashboard = () => {
       try {
         const response = await axios.get('http://localhost:8000/lms/employee/');
         setEmployees(response.data);
-        console.log(token.username)
+        console.log(response.data)
       } catch (error) {
         console.error('Error fetching employees:', error);
       }
@@ -43,12 +43,15 @@ const Dashboard = () => {
 
     const employee = async () => {
       const emp = employees.find((employee) => employee.emp_name === token.username)
+      console.log(employees)
       try {
         const response = await axios.get(`http://localhost:8000/lms/employee/update/${emp.id}`);
         setSelectedEmployee(response.data);
+        console.log(selectedEmployee)
         
       } catch (error) {
         console.error('Error fetching employees:', error);
+        console.log(selectedEmployee)
       }
     }
 

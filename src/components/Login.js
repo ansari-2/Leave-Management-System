@@ -35,7 +35,7 @@ const Login = () => {
         const data = await response.json();
         console.log('Login successful. Token:', data);
         setToken(data);
-        // history("/");
+        history("/");
         
         // Handle success, maybe store token in state or local storage
       } else {
@@ -52,7 +52,7 @@ const Login = () => {
       setEmployees(response.data)
       const user = employees.find((employee) => employee.emp_name === username)
       setActiveUser(user)
-      console.log(activeuser)
+      console.log(user)
       // console.log(employees[employees.length - 1].id)
      
     } catch (error) {
@@ -72,7 +72,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost:8000/lms/leave_type/',
+        'http://localhost:8000/lms/leave_typ/',
         leavetypedata
       );
       console.log('Data submitted successfully:', response.data);
