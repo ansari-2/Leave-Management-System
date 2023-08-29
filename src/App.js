@@ -9,7 +9,8 @@ import LeaveForm from './components/LeaveForm';
 import Leavestatus from './components/Leavestatus';
 import Admin from './components/Admin';
 import Dashboard from './components/Dashboard';
-import Navbar from './components/Navbar';
+import Tokens from './components/tokens';
+
 
 
 
@@ -30,8 +31,7 @@ function App() {
           <Route path="/leavestatus" element={<Leavestatus />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/" element={<Dashboard />} />
-
-          
+          <Route path="/token" element={<Tokens />} />  
           </Routes>
       </div>
     </Router>

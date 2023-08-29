@@ -6,7 +6,7 @@
   flex-direction: column;
   height: 100vh;
   /* background-color: #f0f0f0; */
-  background-color: #1b1818;
+  background: linear-gradient(#141e30,#243b55);
 
   
 }
@@ -16,7 +16,8 @@
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 10px;
-  background-color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
 }
 
 .form-row {
@@ -114,7 +115,7 @@
 .navbar-title {
   font-size: 24px;
   font-weight: bold;
-  margin-left: 265px;
+  margin-left: 200px;
 }
 
 .fixed-top {
@@ -145,6 +146,7 @@
   margin-top: 90px;
   position: relative;
   flex-direction: column-reverse;
+  
 }
 
 .submitted-data-box {

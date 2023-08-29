@@ -5,7 +5,7 @@
   flex-direction: column;
   height: 100vh;
   /* background-color: #f0f0f0; */
-  background-color: #1b1818;
+  background: linear-gradient(#141e30,#243b55);
   
 }
 .leave-table {
@@ -23,8 +23,8 @@
   }
   
   .pending {
-    background-color: rgba(255, 174, 0, 0.468);
-    color: black;
+    background-color: rgba(84, 80, 73, 0.468);
+    color: white;
     text-align: center;
     text-decoration: solid;
   }
@@ -43,7 +43,7 @@
     background-color: red;
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 5px;
     cursor: pointer;
   }
   .logout{

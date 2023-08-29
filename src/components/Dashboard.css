@@ -4,7 +4,7 @@
     flex-direction: column;
     height: 100vh;
     /* background-color: #f0f0f0; */
-    background-color: #1b1818;
+    background: linear-gradient(#141e30,#243b55);
     
   }
   
@@ -78,7 +78,13 @@
     font-weight: normal;
   }
 
-
+.bar-chart-container h2{
+  text-align: center;
+  color: white;
+}
+.bar-chart-container{
+  margin-top: 5%;
+}
 
 
   /* .logout-div {
@@ -126,12 +132,14 @@
   
   }
 
-  /* .leave-table1 {
-    margin-left: 60px;
-    margin-right: 10px; 
-    background-color: #968770;
-    height: 200px;
-  } */
+  .submitted-data-box{
+    background: rgba(0,0,0,.5);
+    color: white;
+  }
+  .submitted-data-box table tr th{
+    background: rgba(0,0,0,.5) !important;
+    /* color: white !important; */
+  }
   
   .leave-table2 {
     margin-right: 70px; 

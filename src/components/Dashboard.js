@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend, Tooltip } from 'recharts';
 import Navbar from './Navbar';
 import { PieChart } from 'react-minimal-pie-chart';
+import { TokenProvider,useToken } from './TokenContext';
 
 
 
@@ -19,22 +20,37 @@ const Dashboard = () => {
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [empleavedata, setEmpLeaveData] = useState(null);
   const [employeeId, setEmployeeId] = useState('');
+  const { token } = useToken();
+  
 
 
   useEffect(() => {
       fetchEmployees();
       fetchleaves();
       fetchleave_types();
+      employee();
     }, []);
 
     const fetchEmployees = async () => {
       try {
         const response = await axios.get('http://localhost:8000/lms/employee/');
         setEmployees(response.data);
+        console.log(token.username)
       } catch (error) {
         console.error('Error fetching employees:', error);
       }
     };
+
+    const employee = async () => {
+      const emp = employees.find((employee) => employee.emp_name === token.username)
+      try {
+        const response = await axios.get(`http://localhost:8000/lms/employee/update/${emp.id}`);
+        setSelectedEmployee(response.data);
+        
+      } catch (error) {
+        console.error('Error fetching employees:', error);
+      }
+    }
 
     const fetchleaves = async () => {
       try {
@@ -96,12 +112,13 @@ const Dashboard = () => {
 
 
     function totalleaves(){
-      const sumValues = empleavedata[0].annual_leave + empleavedata[0].sick_leave + empleavedata[0].bereavement_leave + empleavedata[0].paternity_leave + empleavedata[0].maternity_leave + empleavedata[0].study_leave
+      const sumValues = empleavedata[0].annual_leave + empleavedata[0].sick_leave
       return sumValues
     }
 
 
   return (
+    <TokenProvider>
     <div className="dashboard-container">
         <div className="nav-bar">
         <Link to="/" className="nav-item">Dashboard</Link>
@@ -169,7 +186,7 @@ const Dashboard = () => {
         <br></br>
                       {/* <div className='leave-tables'> */}
       {/* leave-table1 removed */}
-      <div className="leave-table2">
+      <div className="submitted-data-box">
           <h2>Leave Balance</h2>
           <table>
             <thead>
@@ -239,6 +256,7 @@ const Dashboard = () => {
 
     </div>
     </div>
+    </TokenProvider>
     
   );
 };

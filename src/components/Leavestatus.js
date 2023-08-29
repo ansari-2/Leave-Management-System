@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Leavestatus.css';
 import {Link} from 'react-router-dom';
+import { TokenProvider,useToken } from './TokenContext';
 
 const Leavestatus = () => {
     const [leavedata, setLeaveData] = useState([]);
     const [employee, setEmployee] = useState([]);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [empleavedata, setEmpLeaveData] = useState([]);
+    const { token } = useToken();
 
 
     useEffect(() => {
@@ -67,6 +69,7 @@ const Leavestatus = () => {
       }
 
       return(
+        <TokenProvider>
       <div className='leavestatus-container'>
       <div className="nav-bar">
         <Link to="/" className="nav-item">Dashboard</Link>
@@ -90,7 +93,7 @@ const Leavestatus = () => {
       </div>          
         {empleavedata && (
         <div className="submitted-data-container">
-          <div className="leave-table2">
+          <div className="submitted-data-box">
 
             <h3>Leave Data</h3>
             {/* Changes start here */}
@@ -109,9 +112,9 @@ const Leavestatus = () => {
                   <th>Status</th>
                   <th>Action</th>
                   {empleavedata.map((leave) => (
-                    <th>
+                    <>
                   {leave.status === 'pending' &&(<th>Action</th>)}
-                  </th>
+                  </>
                   ))}
                 </tr>
               </thead>
@@ -121,7 +124,7 @@ const Leavestatus = () => {
                     <td>{selectedEmployee.emp_id}</td> */}
                     {/* <td>{empleavedata.available_leaves}</td> */}
                   {empleavedata.map((leave) => (
-                  <tr key={leave.id} className={leave.status === 'Pending' ? 'pending' : (leave.status === 'Approved' ? 'approved' : 'rejected')}>
+                  <tr key={leave.id}>
                     <td>{selectedEmployee.emp_name}</td>
                     <td>{selectedEmployee.emp_id}</td>
                     <td>{FormattedLeaveType(leave.leave_type)}</td>
@@ -129,12 +132,13 @@ const Leavestatus = () => {
                     <td>{leave.end_date}</td>
                     <td>{leave.days}</td>
                     <td>{leave.reason}</td>
-                    <td>{leave.status}</td>
+                    <td className={leave.status === 'Pending' ? 'pending' : (leave.status === 'Approved' ? 'approved' : 'rejected')}>{leave.status}</td>
                     {leave.status === 'Pending' &&(<td><button onClick={() => deleteleave(leave.id)}className="delete-button">
                       Delete
                       </button></td>)}
-                      <td>{leave.status === 'Approved'  &&(<><strong>Completed</strong></>)}
-                      {leave.status === 'Rejected'  &&(<><strong>Completed</strong></>)}</td>
+                      <>
+                      {leave.status === 'Approved'  &&(<td>Completed</td>)}
+                      {leave.status === 'Rejected'  &&(<td>Completed</td>)}</>
                     
                   </tr>
                 ))}
@@ -146,7 +150,9 @@ const Leavestatus = () => {
       )}
 
           </div>
+          </TokenProvider>
       )
+
 };
 
 export default Leavestatus;

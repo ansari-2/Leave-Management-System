@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Admin.css';
 import {Link} from 'react-router-dom';
+import { TokenProvider,useToken } from './TokenContext';
 
 const Admin = () => {
     const [leavedata, setLeaveData] = useState([]);
@@ -9,6 +10,7 @@ const Admin = () => {
     const [employees, setEmployees] = useState([]);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [empleavedata, setEmpLeaveData] = useState([]);
+    const { token } = useToken();
 
 
     useEffect(() => {
@@ -110,6 +112,7 @@ const Admin = () => {
       }
 
       return(
+        <TokenProvider>
       <div className='admin-container'>
         <div className="nav-bar">
         <Link to="/" className="nav-item">Dashboard</Link>
@@ -125,12 +128,12 @@ const Admin = () => {
           
         {empleavedata && (
         <div className="submitted-data-container">
-          <div className="leave-table2">
+          <div className="submitted-data-box">
 
             <h3>Leave Data</h3>
             {/* Changes start here */}
             <table>
-              <thead>
+              <thead className='table-header'>
              
                   <tr>
                   <th>Employee Name</th>
@@ -169,11 +172,13 @@ const Admin = () => {
                     <td>{leave.reason}</td>
                     <td>{leave.status}</td>
                     <td>
+                    <span className='approve'>
                     {leave.status === 'Pending' &&(
                     <button onClick={() => approveleave(leave.id)}className="approve-button">
                       Approve
                       </button>
                       )}
+                      </span>
                       
                     {leave.status === 'Pending' &&(
                     <button onClick={() => rejectleave(leave.id)}className="delete-button">
@@ -184,6 +189,7 @@ const Admin = () => {
                         <strong>Completed</strong>
                       
                       )}
+                      
                     {leave.status === 'Approved' &&(
                         <strong>Completed</strong>
                       
@@ -200,6 +206,7 @@ const Admin = () => {
       )}
 
           </div>
+          </TokenProvider>
       )
 };
 

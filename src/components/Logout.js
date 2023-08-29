@@ -1,6 +1,8 @@
 import React from 'react';
+import { TokenProvider,useToken } from './TokenContext';
 
 function Logout() {
+  const { token } = useToken();
   const handleLogout = async () => {
     try {
       const response = await fetch('http://localhost:8000/logout/', {

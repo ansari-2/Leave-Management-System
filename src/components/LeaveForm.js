@@ -3,8 +3,9 @@ import axios from 'axios';
 import './LeaveForm.css';
 import Navbar from './Navbar';
 import {Link} from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
+import { notification } from 'antd'
+import { TokenProvider,useToken } from './TokenContext';
 
 const LeaveForm = () => {
   const [showSubmittedData, setShowSubmittedData] = useState(false); // for showing submitted data
@@ -17,6 +18,7 @@ const LeaveForm = () => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [reason, setReason] = useState('');
+  const { token } = useToken();
   const [leaveTypes, setLeaveTypes] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [employeeleaveTypes, setEmployeeLeaveTypes] = useState([]);
@@ -141,8 +143,11 @@ const LeaveForm = () => {
         `http://localhost:8000/lms/leave_type/updat/${employeeleaveTypes['id']}`,
         Leave_type_data
       );
-      console.log('Data submitted successfully:', response.data);
-      toast.success('Leave form submitted successfully!');
+      // console.log('Data submitted successfully:', response.data);
+      notification.success({
+        message: 'Leave Requested Successfully',
+        description:'Check Leave Status for further process',
+      });
     } catch (error) {
       console.error('Error submitting data:', error);
  
@@ -154,7 +159,11 @@ const LeaveForm = () => {
         LeaveData
       );
       console.log('Data submitted successfully:', response.data);
-      alert('Data submitted successfully');
+      // alert('Data submitted successfully');
+      notification.success({
+        message:'Leave Request Submitted',
+        description:'For further updates check leave status'
+      })
     } catch (error) {
       console.error('Error submitting data:', error);
  
@@ -213,6 +222,7 @@ const LeaveForm = () => {
   }
 
   return (
+    <TokenProvider>
     <div className="leaveform-container"> 
         <div className="nav-bar">
         <Link to="/" className="nav-item">Dashboard</Link>
@@ -394,6 +404,7 @@ const LeaveForm = () => {
       )}  */}
     </div>
     </div>
+    </TokenProvider>
   );
 };
 
