@@ -1,0 +1,19 @@
+runtime: python39
+instance_class: F2
+
+env_variables:
+  DJANGO_SETTINGS_MODULE: "lms_app.settings"
+  DB_CONNECTION_NAME: "lms-db"
+
+automatic_scaling:
+  target_cpu_utilization: 0.65
+
+handlers:
+  - url: /static
+    static_dir: lms_react/build/static
+  - url: /(.*\.(json|js|ico|svg|png|jpg))$
+    static_files: lms_react/build/\1
+    upload: frontend/build/(.*\.(json|js|ico|svg|png|jpg))$
+  - url: /.*
+    script: auto
+
