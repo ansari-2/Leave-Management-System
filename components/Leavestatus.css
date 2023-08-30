@@ -1,0 +1,59 @@
+/* Add these styles to your existing CSS or create a new CSS file */
+
+.leavestatus-container {
+  /* display: flex; */
+  flex-direction: column;
+  height: 100vh;
+  /* background-color: #f0f0f0; */
+  background: linear-gradient(#141e30,#243b55);
+  
+}
+.leave-table {
+  text-align: center;
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+  }
+  
+  .leave-table th,
+  .leave-table td {
+    text-align: center;
+    border: 1px solid #ccc;
+    padding: 8px;
+  }
+  
+  .pending {
+    background-color: rgba(84, 80, 73, 0.468);
+    color: white;
+    text-align: center;
+    text-decoration: solid;
+  }
+  
+  .approved {
+    background-color: green;
+    color: white;
+  }
+
+  .rejected {
+    background-color: rgb(141, 6, 6);
+    color: white;
+  }
+  
+  .delete-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+  }
+  .logout{
+    margin-left: 423px;
+  }
+  .select{
+    color: #ccc;
+    background-color: #1b1818;
+  }
+  .select:hover {
+    color: #ff9900; /* Change to the desired hover color */
+  }
+  
