@@ -95,7 +95,7 @@ DATABASES = {
         'NAME': 'lmsdb',
         'USER': 'lmsdbadmin',
         'PASSWORD': 'lmsdb_pass@123',
-        'HOST': '127.0.0.1',
+        'HOST': '/cloudsql/postgres://lmsdbadmin:lmsdb_pass@123@//cloudsql/lms-portal-397413:us-central1-a:lms-postgres-db',
         'PORT': '5432',  # Default PostgreSQL port
     }
 }
