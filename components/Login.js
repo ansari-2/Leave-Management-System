@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // import { Link} from 'react-router-dom';
-import {Link, useNavigate } from 'react-router-dom'; // Make sure you import Link
+import {Link, json, useNavigate } from 'react-router-dom'; // Make sure you import Link
 import './Login.css';
 import { useToken } from './TokenContext';
 import axios from 'axios';
@@ -35,8 +35,9 @@ const Login = () => {
         const data = await response.json();
         console.log('Login successful. Token:', data);
         setToken(data);
-        localStorage.setItem('authToken', data);
-        history("/");
+        localStorage.setItem('authToken', data.username);
+        localStorage.setItem('token',data.token)
+        history("/dashboard");
         
         // Handle success, maybe store token in state or local storage
       } else {
@@ -89,32 +90,30 @@ const Login = () => {
       console.error('Error submitting data:', error);
     }
     // const emp = employees[employees.length - 1].id
-
-
-
-
-  
-
   };
+
+  const Register = () =>{
+    history('/register');
+  }
 
 
 
   return (
     <div>
       {/* Navigation Bar */}
-      <div className="nav-bar">
+     <div className="nav-bar">
         <Link to="/" className="nav-item">Dashboard</Link>
         <Link to="/admin" className="nav-item">Admin</Link>
         <Link to="/apply" className="nav-item">Apply Leave</Link>
         <Link to="/leavestatus" className="nav-item">Leave Status</Link>
-        {/* <Link to="/login" className="nav-item">Login</Link> */}
-        <div className="navbar-title">Leave Management System</div>
+        <Link to="/login" className="nav-item">Login</Link>
+         <div className="navbar-title">Leave Management System</div>
         <div className='logout-div'>
           <div className="nav-item">
             <span className="logout-icon"></span>Logout
           </div>
         </div>
-      </div>
+      </div> 
 
       {/* Login Form */}
       <div className="login-box">
@@ -140,6 +139,7 @@ const Login = () => {
             />
             <label>Password</label>
           </div>
+          <span onClick={Register} className='register'>Click here to register</span>
           <button className="login-button" href="#" onClick={handleLogin}>
             Submit
           </button>

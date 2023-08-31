@@ -1,19 +1,22 @@
 import React from 'react';
 import { TokenProvider,useToken } from './TokenContext';
+import {Link, useNavigate } from 'react-router-dom';
 
 function Logout() {
   const { token } = useToken();
+  const history = useNavigate(); 
   const handleLogout = async () => {
     try {
-      const response = await fetch('http://localhost:8000/logout/', {
+      const response = await fetch('http://localhost:8000/api/logout/', {
         method: 'POST',
         headers: {
-          'Authorization': `Token <your_token_here>`, // Replace with the user's actual token
+          'Authorization': token.token, // Replace with the user's actual token
         },
       });
 
       if (response.status === 200) {
         console.log('Logout successful');
+        history("/login");
         // Handle success, maybe clear token from state or local storage
       } else {
         console.error('Logout failed');

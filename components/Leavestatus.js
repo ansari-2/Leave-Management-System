@@ -1,15 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Leavestatus.css';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import { TokenProvider,useToken } from './TokenContext';
+import Logout from './Logout';
 
 const Leavestatus = () => {
     const [leavedata, setLeaveData] = useState([]);
     const [employee, setEmployee] = useState([]);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [empleavedata, setEmpLeaveData] = useState([]);
-    const { token } = useToken();
+    const [token, setToken] = useState(() => {
+      // Retrieve the token from localStorage
+      const storedToken = localStorage.getItem('token');
+      return storedToken || ''; // Return an empty string if the token is not present
+    });
+    const [user, setUser] = useState(() => {
+      // Retrieve the token from localStorage
+      const username = localStorage.getItem('authToken');
+      return username || ''; // Return an empty string if the token is not present
+    });
+    const history = useNavigate();
 
 
     useEffect(() => {
@@ -20,7 +31,7 @@ const Leavestatus = () => {
       const fetchData = async () => {
         const response = await axios.get('http://localhost:8000/lms/employee/');
         const employees = response.data
-        const emp = employees.find((employee) => employee.emp_name === token.username)
+        const emp = employees.find((employee) => employee.emp_name === user)
         console.log(token.username)
         const employee = await axios.get(`http://localhost:8000/lms/employee/update/${emp.id}`);
         setSelectedEmployee(employee.data);
@@ -32,24 +43,30 @@ const Leavestatus = () => {
         setEmpLeaveData(requested_leave) 
       };
 
-      // const fetchleaves = async () => {
-      //   try {
-      //     const response = await axios.get('http://localhost:8000/lms/apply/');
-      //     setLeaveData(response.data);
-      //   } catch (error) {
-      //     console.error('Error fetching employees:', error);
-      //   }
-      // };
-
-      // const handleEmployeeChange = async (e) => {
-      //   const selectedEmpId = parseInt(e.target.value);
-      //   const selectedEmp = employee.find((emp) => emp.id === selectedEmpId);
-      //   console.log(selectedEmp)
-      //   setSelectedEmployee(selectedEmp);
-      //   const requested_leave = leavedata.filter(leave => leave.emp === Number(selectedEmpId))
-      //   console.log(selectedEmployee)
-      //   setEmpLeaveData(requested_leave) 
-      // }; 
+      const Logout = async () => {
+        
+        try {
+          const response = await fetch('http://localhost:8000/api/logout/', {
+            method: 'POST',
+            headers: {
+              'Authorization':'Token'+' '+token, // Replace with the user's actual token
+            },
+          });
+    
+          if (response.status === 200) {
+            console.log('Logout successful');
+            history("/");
+            // Handle success, maybe clear token from state or local storage
+          } else {
+            console.error('Logout failed');
+            console.log('Token'+ ' '+token.token)
+            // Handle failure, show an error message
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          // Handle error, show an error message
+        }
+      };
 
       function FormattedLeaveType(str) {
 
@@ -78,13 +95,13 @@ const Leavestatus = () => {
         <TokenProvider>
       <div className='leavestatus-container'>
       <div className="nav-bar">
-        <Link to="/" className="nav-item">Dashboard</Link>
+        <Link to="/dashboard" className="nav-item">Dashboard</Link>
         <Link to="/admin" className="nav-item">Admin</Link>
         <Link to="/apply" className="nav-item">Apply Leave</Link>
         <Link to="/leavestatus" className="nav-item">Leave Status</Link>
         <div className="navbar-title">Leave Management System</div>
         <div className='logout'>
-        <div className="nav-item">
+        <div className="nav-item" onClick={Logout}>
 
         <span className="logout-icon"></span>Logout</div>
         {/* <div>        <select onChange={handleEmployeeChange} className='select'>

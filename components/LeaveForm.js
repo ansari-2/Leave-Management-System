@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './LeaveForm.css';
 import Navbar from './Navbar';
-import {Link} from 'react-router-dom';
+import {Link,useNavigate} from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css'; 
 import { notification } from 'antd'
 import { TokenProvider,useToken } from './TokenContext';
@@ -18,7 +18,17 @@ const LeaveForm = () => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [reason, setReason] = useState('');
-  const { token } = useToken();
+  const [token, setToken] = useState(() => {
+    // Retrieve the token from localStorage
+    const storedToken = localStorage.getItem('token');
+    return storedToken || ''; // Return an empty string if the token is not present
+  });
+  const [user, setUser] = useState(() => {
+    // Retrieve the token from localStorage
+    const username = localStorage.getItem('authToken');
+    return username || ''; // Return an empty string if the token is not present
+  });
+  const history = useNavigate();
   const [leaveTypes, setLeaveTypes] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [employeeleaveTypes, setEmployeeLeaveTypes] = useState([]);
@@ -42,8 +52,7 @@ const LeaveForm = () => {
   const fetchEmployees = async () => {
     const response = await axios.get('http://localhost:8000/lms/employee/');
     const employees = response.data
-    const emp = employees.find((employee) => employee.emp_name === token.username)
-    console.log(token.username)
+    const emp = employees.find((employee) => employee.emp_name === user)
     const employee = await axios.get(`http://localhost:8000/lms/employee/update/${emp.id}`);
     setSelectedEmployee(employee.data);
     console.log(selectedEmployee)
@@ -80,35 +89,31 @@ const LeaveForm = () => {
     // console.log(employeeleaveTypes[selectedleave])
   };
 
-  // const handleInputChange = (event) => {
-  //   const { name, value } = event.target;
-  
-  //   if (name === "start_date" || name === "end_date") {
-  //     // Calculate the difference between start date and end date
-  //     if (name === "start_date") {
-  //       setStartDate(value);
-  //     } else if (name === "end_date") {
-  //       setEndDate(value);
-  //     }
-  
-  //     if (startDate && endDate) {
-  //       const startDateObj = new Date(startDate);
-  //       const endDateObj = new Date(endDate);
-  //       const timeDiff = Math.abs(endDateObj.getTime() - startDateObj.getTime());
-  //       const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-  //       setDays(daysDiff);
-  //     } else {
-  //       setDays(""); // Clear the days if either start or end date is not selected
-  //     }
-  //   } else {
-  //     setFormData((prevFormData) => ({
-  //       ...prevFormData,
-  //       [name]: value,
-  //     }));
-  //   }
-  // };
-  
-  // program to convert first letter of a string to uppercase
+  const Logout = async () => {
+        
+    try {
+      const response = await fetch('http://localhost:8000/api/logout/', {
+        method: 'POST',
+        headers: {
+          'Authorization':'Token'+' '+token, // Replace with the user's actual token
+        },
+      });
+
+      if (response.status === 200) {
+        console.log('Logout successful');
+        localStorage.removeItem(['authToken','user'])
+        history("/");
+        // Handle success, maybe clear token from state or local storage
+      } else {
+        console.error('Logout failed');
+        console.log('Token'+ ' '+token.token)
+        // Handle failure, show an error message
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle error, show an error message
+    }
+  };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -226,12 +231,12 @@ const LeaveForm = () => {
     <TokenProvider>
     <div className="leaveform-container"> 
         <div className="nav-bar">
-        <Link to="/" className="nav-item">Dashboard</Link>
+        <Link to="/dashboard" className="nav-item">Dashboard</Link>
         <Link to="/admin" className="nav-item">Admin</Link>
         <Link to="/apply" className="nav-item">Apply Leave</Link>
         <Link to="/leavestatus" className="nav-item">Leave Status</Link>
         <div className="navbar-title">Leave Management System</div>
-        <div className='logout-div'>
+        <div className='logout-div' onClick={Logout}>
           {/* <select value={employeeId} onChange={handleEmployeeChange} className='select'>
           <option value="none">Select Employee</option>
           {employees.map((employee) => (

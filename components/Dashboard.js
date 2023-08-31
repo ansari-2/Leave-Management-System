@@ -1,7 +1,7 @@
 import {React,useState, useEffect} from 'react';
 import './Dashboard.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend, Tooltip } from 'recharts';
 import Navbar from './Navbar';
 import { PieChart } from 'react-minimal-pie-chart';
@@ -21,7 +21,17 @@ const Dashboard = () => {
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [empleavedata, setEmpLeaveData] = useState(null);
   const [employeeId, setEmployeeId] = useState('');
-  const { token } = useToken();
+  const [token, setToken] = useState(() => {
+    // Retrieve the token from localStorage
+    const storedToken = localStorage.getItem('token');
+    return storedToken || ''; // Return an empty string if the token is not present
+  });
+  const [user, setUser] = useState(() => {
+    // Retrieve the token from localStorage
+    const username = localStorage.getItem('authToken');
+    return username || ''; // Return an empty string if the token is not present
+  });
+  const history = useNavigate();
   
  
   
@@ -34,12 +44,14 @@ const Dashboard = () => {
       // employee();
     }, []);
 
+
     const fetchEmployees = async () => {
   
         const response = await axios.get('http://localhost:8000/lms/employee/');
         const employees = response.data
-        const emp = employees.find((employee) => employee.emp_name === token.username)
-        console.log(token.username)
+        console.log(user)
+        const emp = employees.find((employee) => employee.emp_name === user)
+        
         const employee = await axios.get(`http://localhost:8000/lms/employee/update/${emp.id}`);
         setSelectedEmployee(employee.data);
         console.log(selectedEmployee)
@@ -116,12 +128,37 @@ const Dashboard = () => {
       return sumValues
     }
 
+    const Logout = async () => {
+        
+      try {
+        const response = await fetch('http://localhost:8000/api/logout/', {
+          method: 'POST',
+          headers: {
+            'Authorization':'Token'+' '+token, // Replace with the user's actual token
+          },
+        });
+  
+        if (response.status === 200) {
+          console.log('Logout successful');
+          history("/");
+          // Handle success, maybe clear token from state or local storage
+        } else {
+          console.error('Logout failed');
+          console.log('Token'+ ' '+token)
+          // Handle failure, show an error message
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        // Handle error, show an error message
+      }
+    };
+
 
   return (
     <TokenProvider>
     <div className="dashboard-container">
         <div className="nav-bar">
-        <Link to="/" className="nav-item">Dashboard</Link>
+        <Link to="/dashboard" className="nav-item">Dashboard</Link>
         <Link to="/admin" className="nav-item">Admin</Link>
         <Link to="/apply" className="nav-item">Apply Leave</Link>
         <Link to="/leavestatus" className="nav-item">Leave Status</Link>
@@ -135,7 +172,7 @@ const Dashboard = () => {
             </option>
             ))}
              </select> */}
-        <div className="nav-item">
+        <div className="nav-item" onClick={Logout}>
         <span className="logout-icon"></span>Logout</div>
 
         </div>

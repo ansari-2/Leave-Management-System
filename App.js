@@ -24,13 +24,13 @@ function App() {
       
           <Routes>
           <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/lms" element={<LeaveApplication />} />
           <Route path="/apply" element={<LeaveForm />} />
           <Route path="/leavestatus" element={<Leavestatus />} />
           <Route path="/admin" element={<Admin />} />
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<Login />} />
           <Route path="/token" element={<Tokens />} />  
           </Routes>
       </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Make sure to import Link from React Router
+import { Link, useNavigate } from 'react-router-dom'; // Make sure to import Link from React Router
 import './Register.css';
 import axios from 'axios';
 import {notification}  from 'antd'
@@ -13,6 +13,7 @@ function Register() {
   const [employeeid, setEmployeeID] = useState('');
   const [activeuser, setActiveUser] = useState('');
   const [employees, setEmployees] = useState('');
+  const history = useNavigate();
 
   const handleRegister = async () => {
     try {
@@ -30,7 +31,7 @@ function Register() {
 
       if (response.status === 201) {
         console.log('Registration successful');
-        // Handle success, maybe redirect to a different page
+       history('/')
       } else {
         console.error('Registration failed');
         // Handle failure, show an error message
