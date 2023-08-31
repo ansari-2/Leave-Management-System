@@ -91,15 +91,12 @@ WSGI_APPLICATION = 'lms_app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'sql_server.pyodbc',
-        'HOST': '34.31.34.82',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'lmsdb',
-        'USER': 'lms_db_admin',
-        'PASSWORD': 'lms_db_pass@123',
-        'PORT': '',  # Leave empty for default SQL Server port
-        'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',  # Install this driver on your local environment
-        },
+        'USER': 'lmsdbadmin',
+        'PASSWORD': 'lmsdb_pass@123',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',  # Default PostgreSQL port
     }
 }
 
