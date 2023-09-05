@@ -1,0 +1,12 @@
+# from your .gitignore file, remove the corresponding line
+# below:
+.git
+.gitignore
+lms_react
+
+# Python pycache:
+_pycache_/
+# Ignored by the build system
+/setup.cfg
+# virtualenv
+venv/
