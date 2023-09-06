@@ -1,0 +1,4 @@
+.sidebar-menus span:not(:first-child):hover {
+    color: #ff9900;
+    
+  }

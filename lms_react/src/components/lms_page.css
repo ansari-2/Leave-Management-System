@@ -1,0 +1,25 @@
+
+.navbar {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+  }
+  
+  .employee-details {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px auto;
+    width: 80%;
+    max-width: 400px;
+  }
+  
+  .employee-detail {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .employee-detail strong {
+    margin-right: 5px;
+  }
