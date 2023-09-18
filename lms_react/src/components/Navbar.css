@@ -1,0 +1,79 @@
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgb(15, 14, 14) 49%, rgb(6, 107, 127) 100%);
+    color: #fff;
+    padding: 18px 20px;
+    
+  }
+  .navbar-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 200px;
+  }
+  
+  .fixed-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100; /* Ensure the navbar is above other content */
+  }
+
+  .nav-bar-admin{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgb(15, 14, 14) 49%, rgb(6, 107, 127) 100%);
+    color: #fff;
+    padding: 18px 20px;
+  }
+  .navbar-title-admin{
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 550px;
+  }
+
+  .nav-item {
+    cursor: pointer;
+    margin: 0 10px;
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.3s;
+  }
+
+  .logout-div {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+  }
+  .poweroff{
+    color: black;
+    width: 30px;
+    height: 27px;
+  }
+  .poweroff:hover {
+    color: #ff9900; /* Change to the desired hover color */
+    transition: 0.3s;
+  }
+  .logout-icon::before {
+  
+    content: "";
+    display: inline-block;
+    width: 20px; /* Adjust the width as needed */
+    height: 20px; /* Adjust the height as needed */
+    /* background-image: url('./shutdown.png'); */
+    background-size: cover;
+    margin-right: 6px; /* Add some spacing between the "Logout" text and the icon */
+    transform: translateY(4px);
+    filter: invert(1) grayscale(100);
+    transition: filter 0.3s, transform 0.3s; 
+
+  }
+
+  .logout-icon:hover::before {
+    filter: hue-rotate(90deg) invert(0) grayscale(100); /* Change color to #ff9900 on hover */
+  }

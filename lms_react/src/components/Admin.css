@@ -1,0 +1,27 @@
+.admin-container {
+  /* display: flex; */
+  flex-direction: column;
+  height: 100vh;
+  /* background-color: #f0f0f0; */
+  background: linear-gradient(#141e30,#243b55);
+  
+}
+
+.approve-button{
+  background: green;
+  color: white;
+  padding: 5px;
+  
+}
+.approve{
+  margin-left: 5px;
+}
+
+.submitted-data-box{
+  background: rgba(0,0,0,.5);
+  color: white;
+}
+.submitted-data-box table tr th{
+  background: rgba(0,0,0,.5) !important;
+  color: white !important;
+}
