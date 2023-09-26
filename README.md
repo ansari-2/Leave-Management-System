@@ -16,20 +16,18 @@ Activate the virtual env:
 env\Scripts\activate
 ```
 
-Install the necessary packages and frameworks:
 
-```bash
-pip install django djangorestframework django-cors-headers
-```
-Creating the django project:
-```bash
-django-admin startproject projectname
-```
 cd to the project folder:
 ```bash
 cd projectname
 ```
-After creating models, views, urls and necessary settings, migrate the db.
+
+Install the necessary packages and frameworks:
+
+```bash
+pip install -r requirements.txt
+```
+Migrate the db.
 
 ```bash
 python manage.py makemigrations
@@ -43,18 +41,13 @@ python manage.py runserver
 
 ## Installation- React APP
 
-In the root folder of the project, create a react app
-
-```bash
-npx create-react-app appname
-```
-cd to the app folder
+cd to react app folder
 
 ```bash
 cd appname
 ```
 
-Install the necessary packages
+Install the necessary packages(all the necessary packages are installed from package.json file)
 
 ```bash
 npm install
